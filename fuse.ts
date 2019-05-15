@@ -18,22 +18,27 @@ task('build', () => {
   fuse
     .bundle('background')
     .instructions('> #/background/index.ts')
-    .watch();
+    .watch('#/background/**');
 
   fuse
     .bundle('content')
     .instructions('> #/content/index.ts')
-    .watch();
+    .watch('#/content/**');
 
   fuse
     .bundle('devtools')
     .instructions('> #/devtools/index.ts')
-    .watch();
+    .watch('#/devtools/**');
+
+  fuse
+    .bundle('panel')
+    .instructions('> #/panel/index.ts')
+    .watch('#/panel/**');
 
   fuse
     .bundle('popup')
     .instructions('> #/popup/index.ts')
-    .watch();
+    .watch('#/popup/**');
 
   return fuse.run();
 });

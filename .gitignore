@@ -1,3 +1,4 @@
 node_modules
 dist
 .fusebox
+.DS_Store
