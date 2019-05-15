@@ -16,7 +16,7 @@
     "removeComments": true,
     "strictNullChecks": true,
     "baseUrl": ".",
-    "outDir": "build",
+    "outDir": "dist",
     "lib": ["es6", "es7", "es2017", "dom"]
   }
 }
