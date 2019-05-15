@@ -2,9 +2,11 @@
 console.log('content');
 
 function main() {
-  chrome.runtime.sendMessage({ greeting: 'hello' }, response => {
-    console.log('response=', response);
-  });
+  setInterval(() => {
+    chrome.runtime.sendMessage({ greeting: 'hello' }, response => {
+      console.log('response=', response);
+    });
+  }, 3000);
 
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log(
