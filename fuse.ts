@@ -26,6 +26,11 @@ task('build', () => {
     .watch('#/content/**');
 
   fuse
+    .bundle('inject')
+    .instructions('> #/inject/index.ts')
+    .watch('#/inject/**');
+
+  fuse
     .bundle('devtools')
     .instructions('> #/devtools/index.ts')
     .watch('#/devtools/**');

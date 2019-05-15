@@ -4,6 +4,7 @@
   "description": "Chrome Extension Starter Kit",
   "version": "1.0",
   "permissions": ["<all_urls>"],
+  "web_accessible_resources": ["inject.bundle.js"],
   "background": {
     "scripts": ["background.bundle.js"],
     "persistent": true
