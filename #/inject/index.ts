@@ -2,16 +2,16 @@ import { xhook } from 'xhook';
 
 xhook.enable();
 
-xhook.after((request, response, cb) => {
+xhook.before((request, cb) => {
   if (
     request.url.includes(
       '/popularsearch?channel=web&child_site_id=1&site_id=1&version=2&cat_tree=1',
     )
   ) {
-    const data = JSON.stringify({
+    const data = {
       app_display_count: 15,
       keywords: [
-        { text: 'Atif Neha' },
+        { text: 'foobarasdjasd' },
         { text: 'Mobile Recharge' },
         { text: 'Electricity Payment' },
         { text: 'Movie Tickets' },
@@ -22,12 +22,12 @@ xhook.after((request, response, cb) => {
         { text: 'Bazaar' },
         { text: 'Samsung Galaxy S10' },
       ],
-    });
-    response.data = data;
-    response.text = data;
+    };
+
+    cb({ data, status: 200, text: JSON.stringify(data) });
 
     window.postMessage({ source: 'atfzl', data: 'modified api call' }, '*');
+  } else {
+    cb();
   }
-
-  cb(response);
 });
