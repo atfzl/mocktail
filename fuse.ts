@@ -33,32 +33,32 @@ task('copy-assets', () => {
 task('build', () => {
   fuse
     .bundle('background')
-    .instructions('> #/background/index.ts')
+    .instructions('> #/entry/background/index.ts')
     .watch('#/**/*.*');
 
   fuse
     .bundle('content')
-    .instructions('> #/content/index.ts')
+    .instructions('> #/entry/content/index.ts')
     .watch('#/**/*.*');
 
   fuse
     .bundle('inject')
-    .instructions('> #/inject/index.ts')
+    .instructions('> #/entry/inject/index.ts')
     .watch('#/**/*.*');
 
   fuse
     .bundle('devtools')
-    .instructions('> #/devtools/index.ts')
+    .instructions('> #/entry/devtools/index.ts')
     .watch('#/**/*.*');
 
   fuse
     .bundle('panel')
-    .instructions('> #/panel/index.ts')
+    .instructions('> #/entry/panel/index.ts')
     .watch('#/**/*.*');
 
   fuse
     .bundle('popup')
-    .instructions('> #/popup/index.ts')
+    .instructions('> #/entry/popup/index.ts')
     .watch('#/**/*.*');
 
   return fuse.run();

@@ -1,6 +1,6 @@
+import actions from '#/reducers/global/actions';
+import { immerCase } from '#/utils';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { immerCase } from '../..//utils';
-import actions from './actions';
 
 export interface IReducerState {
   message: string;

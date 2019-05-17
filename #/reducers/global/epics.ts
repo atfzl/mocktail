@@ -1,7 +1,7 @@
+import { IEpic } from '#/reducers';
+import actions from '#/reducers/global/actions';
 import { combineEpics } from 'redux-observable';
 import { delay, filter, map } from 'rxjs/operators';
-import { IEpic } from '..';
-import actions from './actions';
 
 const epics: IEpic[] = [
   action$ =>
