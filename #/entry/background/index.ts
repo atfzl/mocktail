@@ -1,2 +1,2 @@
+import '#/entry/background/hotReload';
 import '#/store';
-import './hotReload';

@@ -9,6 +9,9 @@ store.ready().then(() => {
   const app = document.getElementById('app')!;
 
   store.subscribe(() => {
-    app.innerHTML = store.getState().global.message;
+    app.innerHTML = store
+      .getState()
+      .network.rows.map((row: any) => row.url)
+      .join('\n');
   });
 });

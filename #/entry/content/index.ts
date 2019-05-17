@@ -1,4 +1,6 @@
-import actions from '#/reducers/global/actions';
+import { NetworkRowMessage } from '#/interfaces';
+import globalActions from '#/reducers/global/actions';
+import networkActions from '#/reducers/network/actions';
 import { Store } from 'webext-redux';
 
 // tslint:disable-next-line:no-console
@@ -21,40 +23,33 @@ console.log('content');
   injectScript('inject.bundle.js');
 }
 
-interface Data<T = any> {
-  body: T;
-  evt: string;
-  src: string;
-}
+const store = new Store();
 
-window.addEventListener('message', event => {
-  if (event.source !== window) {
-    return;
-  }
+store.ready().then(() => {
+  store.dispatch(globalActions.ping());
 
-  const data: Data = event.data;
-
-  if (!data || data.src !== 'xhook-atfzl') {
-    return;
-  }
-
-  switch (data.evt) {
-    case 'enable': {
-      console.log('hook enabled');
-      break;
+  window.addEventListener('message', event => {
+    if (event.source !== window) {
+      return;
     }
-    case 'before': {
-      console.log('hook before', data.body);
-      break;
-    }
-  }
-});
 
-function main() {
-  const store = new Store();
-  store.ready().then(() => {
-    store.dispatch(actions.ping());
+    const data: NetworkRowMessage = event.data;
+
+    if (!data || data.src !== 'xhook-atfzl') {
+      return;
+    }
+
+    switch (data.evt) {
+      case 'enable': {
+        console.log('hook enabled');
+        store.dispatch(networkActions.clearRows());
+        break;
+      }
+      case 'before': {
+        console.log('hook before', data.body);
+        store.dispatch(networkActions.appendRow(data.body));
+        break;
+      }
+    }
   });
-}
-
-window.onload = main;
+});
