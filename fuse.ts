@@ -5,6 +5,10 @@ const fuse = FuseBox.init({
   homeDir: '.',
   target: 'browser@es5',
   output: 'dist/$name.bundle.js',
+  automaticAlias: false,
+  alias: {
+    '#': '~/#',
+  },
 });
 
 task('copy-assets', () => {
@@ -18,32 +22,32 @@ task('build', () => {
   fuse
     .bundle('background')
     .instructions('> #/background/index.ts')
-    .watch('#/background/**');
+    .watch();
 
   fuse
     .bundle('content')
     .instructions('> #/content/index.ts')
-    .watch('#/content/**');
+    .watch();
 
   fuse
     .bundle('inject')
     .instructions('> #/inject/index.ts')
-    .watch('#/inject/**');
+    .watch();
 
   fuse
     .bundle('devtools')
     .instructions('> #/devtools/index.ts')
-    .watch('#/devtools/**');
+    .watch();
 
   fuse
     .bundle('panel')
     .instructions('> #/panel/index.ts')
-    .watch('#/panel/**');
+    .watch();
 
   fuse
     .bundle('popup')
     .instructions('> #/popup/index.ts')
-    .watch('#/popup/**');
+    .watch();
 
   return fuse.run();
 });

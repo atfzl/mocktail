@@ -1,5 +1,5 @@
+import { actions } from '#/background/reducers/global';
 import { Store } from 'webext-redux';
-import { actions } from '../background/reducers/global';
 
 // tslint:disable-next-line:no-console
 console.log('content');
