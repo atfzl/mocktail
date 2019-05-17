@@ -1,5 +1,17 @@
 import { FuseBox } from 'fuse-box';
+import { TypeChecker } from 'fuse-box-typechecker';
 import { src, task } from 'fuse-box/sparky';
+
+const isProd = process.env.NODE_ENV === 'production';
+
+if (!isProd) {
+  const typechecker = TypeChecker({
+    tsConfig: './tsconfig.json',
+    basePath: '.',
+  });
+
+  typechecker.runWatch('./#');
+}
 
 const fuse = FuseBox.init({
   homeDir: '.',
@@ -22,32 +34,32 @@ task('build', () => {
   fuse
     .bundle('background')
     .instructions('> #/background/index.ts')
-    .watch();
+    .watch('#/**/*.*');
 
   fuse
     .bundle('content')
     .instructions('> #/content/index.ts')
-    .watch();
+    .watch('#/**/*.*');
 
   fuse
     .bundle('inject')
     .instructions('> #/inject/index.ts')
-    .watch();
+    .watch('#/**/*.*');
 
   fuse
     .bundle('devtools')
     .instructions('> #/devtools/index.ts')
-    .watch();
+    .watch('#/**/*.*');
 
   fuse
     .bundle('panel')
     .instructions('> #/panel/index.ts')
-    .watch();
+    .watch('#/**/*.*');
 
   fuse
     .bundle('popup')
     .instructions('> #/popup/index.ts')
-    .watch();
+    .watch('#/**/*.*');
 
   return fuse.run();
 });
