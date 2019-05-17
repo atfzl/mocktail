@@ -1,13 +1,14 @@
 // tslint:disable-next-line:no-console
 console.log('panel');
 
-// chrome.runtime.sendMessage({ greeting: 'hello from panel' }, response => {
-//   console.log('response=', response);
-// });
+import { Store } from 'webext-redux';
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  // tslint:disable-next-line:no-console
-  console.log(request);
+const store = new Store();
 
-  sendResponse('foobar');
+store.ready().then(() => {
+  const app = document.getElementById('app')!;
+
+  store.subscribe(() => {
+    app.innerHTML = store.getState().global.message;
+  });
 });

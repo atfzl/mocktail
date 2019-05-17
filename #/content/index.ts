@@ -1,3 +1,6 @@
+import { Store } from 'webext-redux';
+import { actions } from '../background/reducers/global';
+
 // tslint:disable-next-line:no-console
 console.log('content');
 
@@ -16,37 +19,11 @@ const injectScript = (script: string) => {
 
 injectScript('inject.bundle.js');
 
-window.addEventListener('message', (event: MessageEvent) => {
-  // // We only accept messages from ourselves
-  if (event.source !== window) {
-    console.log(event.source, window);
-    return;
-  }
-
-  if (event.data.source && event.data.source === 'atfzl') {
-    chrome.runtime.sendMessage(event.data, console.log);
-  }
-});
-
 function main() {
-  // setInterval(() => {
-  //   chrome.runtime.sendMessage({ greeting: 'hello' }, response => {
-  //     console.log('response=', response);
-  //   });
-  // }, 3000);
-  // chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  //   console.log(
-  //     sender.tab
-  //       ? 'from a content script:' + sender.tab.url
-  //       : 'from the extension',
-  //   );
-  //   console.log(request);
-  //   if (request.action === 'open_dialog_box') {
-  //     sendResponse({ farewell: 'goodbye from content script' });
-  //   } else {
-  //     sendResponse('foobar');
-  //   }
-  // });
+  const store = new Store();
+  store.ready().then(() => {
+    store.dispatch(actions.ping());
+  });
 }
 
 window.onload = main;
