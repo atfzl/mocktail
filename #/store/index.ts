@@ -1,9 +1,9 @@
-import { IRootState, rootEpic, rootReducer } from '#/reducers';
-import { applyMiddleware, createStore, Store } from 'redux';
+import { rootEpic, rootReducer, RootState } from '#/reducers';
+import { applyMiddleware, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import { wrapStore } from 'webext-redux';
 
-export function configureStore(initialState?: IRootState) {
+export function configureStore(initialState?: RootState) {
   const epicMiddleware = createEpicMiddleware();
 
   const middlewares = [epicMiddleware];
@@ -19,9 +19,7 @@ export function configureStore(initialState?: IRootState) {
 
   const middleware = applyMiddleware(...middlewares);
 
-  const s = createStore(rootReducer, initialState!, middleware) as Store<
-    IRootState
-  >;
+  const s = createStore<RootState>(rootReducer, initialState!, middleware);
 
   epicMiddleware.run(rootEpic as any);
 

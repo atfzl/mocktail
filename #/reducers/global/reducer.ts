@@ -2,13 +2,13 @@ import actions from '#/reducers/global/actions';
 import { immerCase } from '#/utils';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
-export interface IReducerState {
+export interface ReducerState {
   message: string;
 }
 
-const InitialState: IReducerState = { message: 'hello' };
+const InitialState: ReducerState = { message: 'hello' };
 
-const reducer = reducerWithInitialState<IReducerState>(InitialState)
+const reducer = reducerWithInitialState<ReducerState>(InitialState)
   .withHandling(
     immerCase(actions.ping, draft => {
       draft.message = 'PING';
