@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Chrome Extension Base",
+  "name": "Mocktail",
   "description": "Chrome Extension Starter Kit",
   "version": "1.0",
   "permissions": ["<all_urls>"],

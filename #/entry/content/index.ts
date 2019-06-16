@@ -50,6 +50,11 @@ store.ready().then(() => {
         store.dispatch(networkActions.appendRow(data.body));
         break;
       }
+      case 'after': {
+        console.log('hook after', data.body);
+        store.dispatch(networkActions.updateRow(data.body));
+        break;
+      }
     }
   });
 });

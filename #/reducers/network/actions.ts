@@ -5,6 +5,7 @@ const actionCreator = actionCreatorFactory('GLOBAL');
 
 const actions = {
   appendRow: actionCreator<NetworkRow>('appendRow'),
+  updateRow: actionCreator<NetworkRow>('updateRowResponse'),
   clearRows: actionCreator('clearRows'),
 };
 

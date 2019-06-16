@@ -1,21 +1,6 @@
-import { IEpic } from '#/reducers';
-import actions from '#/reducers/global/actions';
+import { Epic } from '#/reducers';
 import { combineEpics } from 'redux-observable';
-import { delay, filter, map } from 'rxjs/operators';
 
-const epics: IEpic[] = [
-  action$ =>
-    action$.pipe(
-      filter(actions.ping.match),
-      delay(2000),
-      map(() => actions.pong()),
-    ),
-  action$ =>
-    action$.pipe(
-      filter(actions.pong.match),
-      delay(2000),
-      map(() => actions.ping()),
-    ),
-];
+const epics: Epic[] = [];
 
 export default combineEpics(...epics);

@@ -53,7 +53,7 @@ task('build', () => {
 
   fuse
     .bundle('panel')
-    .instructions('> #/entry/panel/index.ts')
+    .instructions('> #/entry/panel/index.tsx')
     .watch('#/**/*.*');
 
   fuse
