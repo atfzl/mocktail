@@ -14,8 +14,14 @@ xhook.before((request: Request) => {
   {
     const { url, method, body, headers } = request;
 
+    const safeRequestHeaders = JSON.parse(JSON.stringify(headers));
+
     window.postMessage(
-      { src, evt: 'before', body: { request: { url, method, body, headers } } },
+      {
+        src,
+        evt: 'before',
+        body: { request: { url, method, body, headers: safeRequestHeaders } },
+      },
       '*',
     );
   }
@@ -23,16 +29,19 @@ xhook.before((request: Request) => {
 
 xhook.after((request: NetworkRequest, response: NetworkResponse) => {
   {
-    const { url, method, body, headers } = request;
+    const { url, method, body, headers: requestHeaders } = request;
     const { status, headers: responseHeaders, data, finalUrl } = response;
+
+    const safeRequestHeaders = JSON.parse(JSON.stringify(requestHeaders));
+    const safeResponseHeaders = JSON.parse(JSON.stringify(responseHeaders));
 
     window.postMessage(
       {
         src,
         evt: 'after',
         body: {
-          request: { url, method, body, headers },
-          response: { status, headers: responseHeaders, data, finalUrl },
+          request: { url, method, body, headers: safeRequestHeaders },
+          response: { status, headers: safeResponseHeaders, data, finalUrl },
         },
       },
       '*',
