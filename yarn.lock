@@ -163,6 +163,21 @@
   resolved "https://registry.yarnpkg.com/@material/feature-targeting/-/feature-targeting-0.44.1.tgz#afafc80294e5efab94bee31a187273d43d34979a"
   integrity sha512-90cc7njn4aHbH9UxY8qgZth1W5JgOgcEdWdubH1t7sFkwqFxS5g3zgxSBt46TygFBVIXNZNq35Xmg80wgqO7Pg==
 
+"@material/list@^2.0.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@material/list/-/list-2.3.0.tgz#07f8d7194495f487d440bbe9fd09a2d3a68cee06"
+  integrity sha512-uuHWXpaXvPuOaQtQXwrgNc+WTTwBSwU/es65KJJcGrpc/o8Q3mYwMepotMN7E7/L75Wxz2w6uejnoM3zGZfvqg==
+  dependencies:
+    "@material/base" "^1.0.0"
+    "@material/dom" "^1.1.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/ripple" "^2.3.0"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.1.1"
+    "@material/theme" "^1.1.0"
+    "@material/typography" "^2.3.0"
+    tslib "^1.9.3"
+
 "@material/ripple@^2.0.0", "@material/ripple@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@material/ripple/-/ripple-2.3.0.tgz#4701b2cfecddc4c83ae62c777ae2bf9607988705"
@@ -179,6 +194,13 @@
   version "0.42.0"
   resolved "https://registry.yarnpkg.com/@material/rtl/-/rtl-0.42.0.tgz#1836e78186c2d8b996f6fbf97adab203535335bc"
   integrity sha512-VrnrKJzhmspsN8WXHuxxBZ69yM5IwhCUqWr1t1eNfw3ZEvEj7i1g3P31HGowKThIN1dc1Wh4LE14rCISWCtv5w==
+
+"@material/shape@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@material/shape/-/shape-1.1.1.tgz#7a5368694bc3555e69ea547950904b46fa1024bf"
+  integrity sha512-Jge/h1XBLjdLlam4QMSzVgM99e/N8+elQROPkltqVP7eyLc17BwM3aP5cLVfZDgrJgvsjUxbgAP1H1j8sqmUyg==
+  dependencies:
+    "@material/feature-targeting" "^0.44.1"
 
 "@material/tab-bar@^2.0.0":
   version "2.3.0"
@@ -260,6 +282,15 @@
     hyperform "^0.9.9"
     mutation-observer "^1.0.3"
 
+"@rmwc/elevation@^5.5.2":
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/@rmwc/elevation/-/elevation-5.5.2.tgz#5589282463a08787e9784df4fdc6a23d191edd3b"
+  integrity sha512-24IBOrX7/DDuk2tjQy3dhGYjMN6HCTC+wuzPe5SGPQQS2LfgjVokNeMqRUffFnqgqqpA/FvjdmUzMT67NA8l1g==
+  dependencies:
+    "@material/elevation" "^1.1.0"
+    "@rmwc/base" "^5.5.2"
+    "@rmwc/types" "^5.5.2"
+
 "@rmwc/icon@^5.5.2":
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/@rmwc/icon/-/icon-5.5.2.tgz#54b06a7c8378a45fba3b2a2325b3451daae315c3"
@@ -267,6 +298,18 @@
   dependencies:
     "@rmwc/base" "^5.5.2"
     "@rmwc/provider" "^5.5.2"
+    "@rmwc/types" "^5.5.2"
+
+"@rmwc/list@^5.5.2":
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/@rmwc/list/-/list-5.5.2.tgz#742d205f8fd69141397bab4b9dd0986a457e4d5b"
+  integrity sha512-Fj6NQrkixIAMbOPJzJmEsX4gHPSARlUyBWRd/cJImzWs6EYpm4YV1MyXbM3gIkz19BFRlth5OOxom/yQm9prZw==
+  dependencies:
+    "@material/list" "^2.0.0"
+    "@rmwc/base" "^5.5.2"
+    "@rmwc/icon" "^5.5.2"
+    "@rmwc/provider" "^5.5.2"
+    "@rmwc/ripple" "^5.5.2"
     "@rmwc/types" "^5.5.2"
 
 "@rmwc/provider@^5.5.2":

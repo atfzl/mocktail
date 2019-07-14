@@ -1,7 +1,8 @@
-import Logs from '#/entry/panel/app/containers/logs';
 import styled from '#/styled';
 import { Tab, TabBar } from '@rmwc/tabs';
 import * as React from 'react';
+import Logs from './containers/logs';
+import Mocks from './containers/mocks';
 
 interface IState {
   activeTab: keyof typeof tabs;
@@ -35,7 +36,7 @@ export default class App extends React.Component<{}, IState> {
           <Tab label="Logs" />
           <Tab label="Mocks" />
         </TabBar>
-        <Wrapper>{activeTab === 'logs' ? <Logs /> : null}</Wrapper>
+        <Wrapper>{activeTab === 'logs' ? <Logs /> : <Mocks />}</Wrapper>
       </>
     );
   }

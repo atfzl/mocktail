@@ -25,6 +25,9 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
+    "@rmwc/elevation": "^5.5.2",
+    "@rmwc/icon": "^5.5.2",
+    "@rmwc/list": "^5.5.2",
     "@rmwc/tabs": "^5.5.2",
     "@types/classnames": "^2.2.9",
     "@types/styled-components": "4.1.8",
