@@ -1,4 +1,4 @@
-import { FuseBox } from 'fuse-box';
+import { CSSPlugin, FuseBox } from 'fuse-box';
 import { TypeChecker } from 'fuse-box-typechecker';
 import { src, task } from 'fuse-box/sparky';
 
@@ -21,6 +21,7 @@ const fuse = FuseBox.init({
   alias: {
     '#': '~/#',
   },
+  plugins: [CSSPlugin()],
 });
 
 task('copy-assets', () => {
