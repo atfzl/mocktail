@@ -11,6 +11,7 @@
   "devDependencies": {
     "@types/chrome": "^0.0.85",
     "@types/json-stringify-safe": "^5.0.0",
+    "@types/nanoid": "^2.0.0",
     "@types/node": "^12.0.2",
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
@@ -33,6 +34,7 @@
     "@types/styled-components": "4.1.8",
     "immer": "^3.1.2",
     "json-stringify-safe": "^5.0.1",
+    "nanoid": "^2.0.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",

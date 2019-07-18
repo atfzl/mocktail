@@ -5,6 +5,7 @@
     "no-submodule-imports": false,
     "member-ordering": false,
     "no-implicit-dependencies": false,
-    "interface-name": false
+    "interface-name": false,
+    "no-console": [true, "log"]
   }
 }

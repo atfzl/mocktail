@@ -1,60 +1,36 @@
-import { NetworkRowMessage } from '#/interfaces';
 import globalActions from '#/reducers/global/actions';
 import networkActions from '#/reducers/network/actions';
+import { receiveMessage } from '#/utils/message';
+import { injectScript } from '#/utils/script';
 import { Store } from 'webext-redux';
 
-// tslint:disable-next-line:no-console
-console.log('content');
+console.info('content script');
 
-{
-  const injectScript = (script: string) => {
-    const s = document.createElement('script');
-
-    const src = chrome.extension.getURL(script);
-
-    s.src = src;
-    s.onload = () => {
-      s.remove();
-    };
-
-    document.documentElement.appendChild(s);
-  };
-
-  injectScript('inject.bundle.js');
-}
+injectScript('inject.bundle.js');
 
 const store = new Store();
 
 store.ready().then(() => {
   store.dispatch(globalActions.ping());
 
-  window.addEventListener('message', event => {
-    if (event.source !== window) {
-      return;
-    }
-
-    const data: NetworkRowMessage = event.data;
-
-    if (!data || data.src !== 'xhook-atfzl') {
-      return;
-    }
-
-    switch (data.evt) {
+  receiveMessage(async payload => {
+    switch (payload.evt) {
       case 'enable': {
-        console.log('hook enabled');
+        console.info('hook enabled');
         store.dispatch(networkActions.clearRows());
-        break;
+        return true;
       }
       case 'before': {
-        console.log('hook before', data.body);
-        store.dispatch(networkActions.appendRow(data.body));
-        break;
+        console.info('hook before', payload.body);
+        store.dispatch(networkActions.appendRow(payload.body));
+        return true;
       }
       case 'after': {
-        console.log('hook after', data.body);
-        store.dispatch(networkActions.updateRow(data.body));
-        break;
+        console.info('hook after', payload.body);
+        store.dispatch(networkActions.updateRow(payload.body));
+        return true;
       }
     }
+    return;
   });
 });
