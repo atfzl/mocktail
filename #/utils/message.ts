@@ -1,29 +1,27 @@
 import nanoid = require('nanoid');
 
-const SOURCE = 'xhook-atfzl-message-';
+const SOURCE = 'xhook-atfzl-message';
 
-export const postMessage = (() => {
+export const postMessage = <T extends object>(payload: T) => {
   const id = nanoid();
 
-  return <T extends object>(payload: T) => {
-    return new Promise(resolve => {
-      const eventListener = (event: MessageEvent) => {
-        if (
-          event.source === window &&
-          event.data.id === id &&
-          event.data.source === SOURCE &&
-          event.data.type === 'response'
-        ) {
-          resolve(event.data.response);
-          window.removeEventListener('message', eventListener);
-        }
-      };
+  return new Promise(resolve => {
+    const eventListener = (event: MessageEvent) => {
+      if (
+        event.source === window &&
+        event.data.id === id &&
+        event.data.source === SOURCE &&
+        event.data.type === 'response'
+      ) {
+        resolve(event.data.response);
+        window.removeEventListener('message', eventListener);
+      }
+    };
 
-      window.addEventListener('message', eventListener);
-      window.postMessage({ id, payload, source: SOURCE, type: 'request' }, '*');
-    });
-  };
-})();
+    window.addEventListener('message', eventListener);
+    window.postMessage({ id, payload, source: SOURCE, type: 'request' }, '*');
+  });
+};
 
 export const receiveMessage = <M = any, T = any>(
   cb: (payload: M) => Promise<T>,
