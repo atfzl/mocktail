@@ -15,7 +15,7 @@ store.ready().then(() => {
   const appNode = document.getElementById('app');
 
   render(
-    <Provider store={store}>
+    <Provider store={store as any}>
       <ThemeProvider theme={theme}>
         <>
           <GlobalCss />

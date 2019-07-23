@@ -1,6 +1,11 @@
 console.info('inject script');
 
-import { NetworkRequest, NetworkResponse } from '#/interfaces';
+import {
+  MockedNetworkResponse,
+  NetworkRequest,
+  NetworkResponse,
+  XHRRequest,
+} from '#/interfaces';
 import { postMessage } from '#/utils/message';
 import { xhook } from 'xhook';
 
@@ -9,23 +14,47 @@ async function main() {
 
   console.info('before activating before');
 
-  xhook.before((request: NetworkRequest) => {
+  xhook.before(
+    (
+      request: NetworkRequest,
+      responder: (mockedNetworkResponse?: MockedNetworkResponse) => void,
+    ) => {
+      if (request instanceof Request) {
+        responder();
+        return;
+      }
+
+      if (request.url instanceof Request) {
+        responder();
+        return;
+      }
+
+      const { url, method, body, headers } = request as XHRRequest<any>;
+
+      postMessage({
+        evt: 'before',
+        body: { request: { url, method, body, headers } },
+      });
+
+      responder();
+    },
+  );
+
+  xhook.after((request: NetworkRequest, response: NetworkResponse) => {
     if (request instanceof Request) {
       return;
     }
 
-    const { url, method, body, headers } = request;
+    if (request.url instanceof Request) {
+      return;
+    }
 
-    const safeRequestHeaders = JSON.parse(JSON.stringify(headers));
-
-    postMessage({
-      evt: 'before',
-      body: { request: { url, method, body, headers: safeRequestHeaders } },
-    });
-  });
-
-  xhook.after((request: NetworkRequest, response: NetworkResponse) => {
-    const { url, method, body, headers: requestHeaders } = request;
+    const {
+      url,
+      method,
+      body,
+      headers: requestHeaders,
+    } = request as XHRRequest<any>;
 
     if (response instanceof Response) {
       return;
@@ -33,19 +62,18 @@ async function main() {
 
     const { status, headers: responseHeaders, data, finalUrl } = response;
 
-    const safeRequestHeaders = JSON.parse(JSON.stringify(requestHeaders));
-    const safeResponseHeaders = JSON.parse(JSON.stringify(responseHeaders));
-
     postMessage({
       evt: 'after',
       body: {
-        request: { url, method, body, headers: safeRequestHeaders },
-        response: { status, headers: safeResponseHeaders, data, finalUrl },
+        request: { url, method, body, headers: requestHeaders },
+        response: { status, headers: responseHeaders, data, finalUrl },
       },
     });
   });
 }
 
-main().catch(e => {
+try {
+  main();
+} catch (e) {
   console.error('mocktail error: ', e);
-});
+}

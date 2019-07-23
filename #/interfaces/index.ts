@@ -1,4 +1,4 @@
-interface XHRRequest<T = any> {
+export interface XHRRequest<T = any> {
   async: boolean;
   body: T;
   headerNames: Record<string, string>;
@@ -12,10 +12,10 @@ interface XHRRequest<T = any> {
   xhr: XMLHttpRequest;
 }
 
-export type NetworkRequest = XHRRequest | Request;
+export type NetworkRequest = XHRRequest | Request | { url: Request };
 
-interface XHRResponse {
-  data: string;
+interface XHRResponse<T = any> {
+  data: T;
   finalUrl: string;
   headers: Record<string, string>;
   status: number;
@@ -24,10 +24,17 @@ interface XHRResponse {
   xml: null;
 }
 
+export type MockedNetworkResponse = Partial<XHRResponse> | Response;
+
 export type NetworkResponse = XHRResponse | Response;
 
 export interface NetworkRow {
-  request: NetworkRequest;
+  request: {
+    url: string;
+    method: string;
+    body: any;
+    headers: Record<string, string>;
+  };
   response?: NetworkResponse;
 }
 
