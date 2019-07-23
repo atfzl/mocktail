@@ -1,18 +1,30 @@
-export interface NetworkRequest {
-  url: string;
-  method: string;
-  body: any;
+interface XHRRequest<T = any> {
+  async: boolean;
+  body: T;
+  headerNames: Record<string, string>;
   headers: Record<string, string>;
-  [k: string]: any;
+  method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE';
+  pass: undefined;
+  status: number; // XMLHTTPRequest status, will be 0 in before hook
+  upload: XMLHttpRequestUpload;
+  url: string;
+  user: undefined;
+  xhr: XMLHttpRequest;
 }
 
-export interface NetworkResponse {
+export type NetworkRequest = XHRRequest | Request;
+
+interface XHRResponse {
   data: string;
   finalUrl: string;
-  status: number;
   headers: Record<string, string>;
-  [k: string]: any;
+  status: number;
+  statusText: '';
+  text: string; // this is same as data
+  xml: null;
 }
+
+export type NetworkResponse = XHRResponse | Response;
 
 export interface NetworkRow {
   request: NetworkRequest;

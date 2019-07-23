@@ -9,35 +9,40 @@ async function main() {
 
   console.info('before activating before');
 
-  xhook.before((request: Request) => {
-    {
-      const { url, method, body, headers } = request;
-
-      const safeRequestHeaders = JSON.parse(JSON.stringify(headers));
-
-      postMessage({
-        evt: 'before',
-        body: { request: { url, method, body, headers: safeRequestHeaders } },
-      });
+  xhook.before((request: NetworkRequest) => {
+    if (request instanceof Request) {
+      return;
     }
+
+    const { url, method, body, headers } = request;
+
+    const safeRequestHeaders = JSON.parse(JSON.stringify(headers));
+
+    postMessage({
+      evt: 'before',
+      body: { request: { url, method, body, headers: safeRequestHeaders } },
+    });
   });
 
   xhook.after((request: NetworkRequest, response: NetworkResponse) => {
-    {
-      const { url, method, body, headers: requestHeaders } = request;
-      const { status, headers: responseHeaders, data, finalUrl } = response;
+    const { url, method, body, headers: requestHeaders } = request;
 
-      const safeRequestHeaders = JSON.parse(JSON.stringify(requestHeaders));
-      const safeResponseHeaders = JSON.parse(JSON.stringify(responseHeaders));
-
-      postMessage({
-        evt: 'after',
-        body: {
-          request: { url, method, body, headers: safeRequestHeaders },
-          response: { status, headers: safeResponseHeaders, data, finalUrl },
-        },
-      });
+    if (response instanceof Response) {
+      return;
     }
+
+    const { status, headers: responseHeaders, data, finalUrl } = response;
+
+    const safeRequestHeaders = JSON.parse(JSON.stringify(requestHeaders));
+    const safeResponseHeaders = JSON.parse(JSON.stringify(responseHeaders));
+
+    postMessage({
+      evt: 'after',
+      body: {
+        request: { url, method, body, headers: safeRequestHeaders },
+        response: { status, headers: safeResponseHeaders, data, finalUrl },
+      },
+    });
   });
 }
 
