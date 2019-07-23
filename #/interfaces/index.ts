@@ -38,6 +38,11 @@ export interface NetworkRow {
   response?: NetworkResponse;
 }
 
+export interface MockedNetworkRow extends NetworkRow {
+  delay: number;
+  active: boolean;
+}
+
 export interface NetworkRowMessage {
   body: NetworkRow;
   evt: string;

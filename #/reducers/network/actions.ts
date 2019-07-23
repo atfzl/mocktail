@@ -1,7 +1,7 @@
 import { NetworkRow } from '#/interfaces';
 import actionCreatorFactory from 'typescript-fsa';
 
-const actionCreator = actionCreatorFactory('GLOBAL');
+const actionCreator = actionCreatorFactory('NETWORK');
 
 const actions = {
   appendRow: actionCreator<NetworkRow>('appendRow'),
