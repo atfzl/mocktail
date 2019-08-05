@@ -19,17 +19,37 @@ async function main() {
       request: NetworkRequest,
       responder: (mockedNetworkResponse?: MockedNetworkResponse) => void,
     ) => {
-      if (request instanceof Request) {
-        responder();
-        return;
-      }
+      let url: string;
+      let method: XHRRequest['method'];
+      let body: any;
+      let headers: any;
 
-      if (request.url instanceof Request) {
-        responder();
-        return;
-      }
+      if (request instanceof Request || request.url instanceof Request) {
+        const req = (request.url instanceof Request
+          ? request.url
+          : request) as Request;
 
-      const { url, method, body, headers } = request as XHRRequest<any>;
+        console.info('fetch', req);
+
+        const headerObj: Record<string, string> = {};
+        req.headers.forEach((value, key) => {
+          headerObj[key] = value;
+        });
+
+        url = req.url;
+        method = req.method;
+        body = req.body;
+        headers = headerObj;
+      } else {
+        const req = request as XHRRequest<any>;
+
+        console.info('xhr', req);
+
+        url = req.url;
+        method = req.method;
+        body = req.body;
+        headers = req.headers;
+      }
 
       postMessage({
         evt: 'before',

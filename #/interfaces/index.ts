@@ -3,7 +3,7 @@ export interface XHRRequest<T = any> {
   body: T;
   headerNames: Record<string, string>;
   headers: Record<string, string>;
-  method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE';
+  method: string;
   pass: undefined;
   status: number; // XMLHTTPRequest status, will be 0 in before hook
   upload: XMLHttpRequestUpload;
@@ -35,7 +35,12 @@ export interface NetworkRow {
     body: any;
     headers: Record<string, string>;
   };
-  response?: NetworkResponse;
+  response?: {
+    status: number;
+    headers: Record<string, string>;
+    data: any;
+    finalUrl: string;
+  };
 }
 
 export interface NetworkRowMessage {

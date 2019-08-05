@@ -27,21 +27,21 @@
 
 // $.get('https://jsonplaceholder.typicode.com/todos/2');
 
-{
-  // 1. Create a new XMLHttpRequest object
-  let xhr = new XMLHttpRequest();
+// {
+//   // 1. Create a new XMLHttpRequest object
+//   let xhr = new XMLHttpRequest();
 
-  // 2. Configure it: GET-request for the URL /article/.../load
-  xhr.open(
-    'GET',
-    'https://image.shutterstock.com/image-photo/beautiful-autumn-scene-hintersee-lake-600w-747646759.jpg',
-  );
-  // 3. Send the request over the network
-  xhr.send();
+//   // 2. Configure it: GET-request for the URL /article/.../load
+//   xhr.open(
+//     'GET',
+//     'https://image.shutterstock.com/image-photo/beautiful-autumn-scene-hintersee-lake-600w-747646759.jpg',
+//   );
+//   // 3. Send the request over the network
+//   xhr.send();
 
-  // 4. This will be called after the response is received
-  xhr.onload = function() {
-    // show the result
-    console.log('Done', xhr.response, xhr); // responseText is the server
-  };
-}
+//   // 4. This will be called after the response is received
+//   xhr.onload = function() {
+//     // show the result
+//     console.log('Done', xhr.response, xhr); // responseText is the server
+//   };
+// }
