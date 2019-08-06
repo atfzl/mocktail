@@ -4,90 +4,116 @@ import {
   MockedNetworkResponse,
   NetworkRequest,
   NetworkResponse,
+  NetworkRow,
   XHRRequest,
 } from '#/interfaces';
 import { postMessage } from '#/utils/message';
 import { xhook } from 'xhook';
 
+function getHeaderObj(headers: Headers | Record<string, string>) {
+  if (headers instanceof Headers) {
+    const headerObj: Record<string, string> = {};
+
+    headers.forEach((value, key) => {
+      headerObj[key] = value;
+    });
+
+    return headerObj;
+  }
+
+  return headers;
+}
+
+function generateRequestPayload(
+  request: NetworkRequest,
+): NetworkRow['request'] {
+  if (request instanceof Request || request.url instanceof Request) {
+    const req = (request.url instanceof Request
+      ? request.url
+      : request) as Request;
+
+    console.info('fetch', req);
+
+    return {
+      url: req.url,
+      method: req.method,
+      body: req.body,
+      headers: getHeaderObj(req.headers),
+    };
+  } else {
+    const req = request as XHRRequest<any>;
+
+    console.info('xhr', req);
+
+    return {
+      url: req.url,
+      method: req.method,
+      body: req.body,
+      headers: req.headers,
+    };
+  }
+}
+
+async function generateResponsePayload(
+  response: NetworkResponse,
+): Promise<NetworkRow['response']> {
+  if (response instanceof Response) {
+    const { status, headers, url } = response;
+
+    const data = await response.json();
+
+    return {
+      status,
+      headers: getHeaderObj(headers),
+      finalUrl: url,
+      data,
+    };
+  } else {
+    const { status, headers, data, finalUrl } = response;
+
+    return {
+      status,
+      headers,
+      data,
+      finalUrl,
+    };
+  }
+}
+
 async function main() {
   xhook.enable();
 
-  console.info('before activating before');
+  console.info('enabling hooks');
 
   xhook.before(
     (
       request: NetworkRequest,
       responder: (mockedNetworkResponse?: MockedNetworkResponse) => void,
     ) => {
-      let url: string;
-      let method: XHRRequest['method'];
-      let body: any;
-      let headers: any;
-
-      if (request instanceof Request || request.url instanceof Request) {
-        const req = (request.url instanceof Request
-          ? request.url
-          : request) as Request;
-
-        console.info('fetch', req);
-
-        const headerObj: Record<string, string> = {};
-        req.headers.forEach((value, key) => {
-          headerObj[key] = value;
-        });
-
-        url = req.url;
-        method = req.method;
-        body = req.body;
-        headers = headerObj;
-      } else {
-        const req = request as XHRRequest<any>;
-
-        console.info('xhr', req);
-
-        url = req.url;
-        method = req.method;
-        body = req.body;
-        headers = req.headers;
-      }
-
       postMessage({
         evt: 'before',
-        body: { request: { url, method, body, headers } },
+        body: generateRequestPayload(request),
       });
 
       responder();
     },
   );
 
-  xhook.after((request: NetworkRequest, response: NetworkResponse) => {
-    if (request instanceof Request) {
-      return;
-    }
-
-    if (request.url instanceof Request) {
-      return;
-    }
-
-    const {
-      url,
-      method,
-      body,
-      headers: requestHeaders,
-    } = request as XHRRequest<any>;
-
+  xhook.after((request: NetworkRequest, response: NetworkResponse, cb: any) => {
+    let oldResponse = response;
     if (response instanceof Response) {
-      return;
+      oldResponse = response.clone();
     }
 
-    const { status, headers: responseHeaders, data, finalUrl } = response;
-
-    postMessage({
-      evt: 'after',
-      body: {
-        request: { url, method, body, headers: requestHeaders },
-        response: { status, headers: responseHeaders, data, finalUrl },
-      },
+    generateResponsePayload(response).then(responseBody => {
+      postMessage({
+        evt: 'after',
+        body: {
+          request: generateRequestPayload(request),
+          response: responseBody,
+        },
+      });
+      cb(oldResponse);
     });
   });
 }
