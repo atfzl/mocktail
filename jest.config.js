@@ -59,9 +59,7 @@ module.exports = {
   globalTeardown: './#/utils/jest.teardown.ts',
 
   // A set of global variables that need to be available in all test environments
-  globals: {
-    getUrl: path => `http://localhost:${5555}${path}`,
-  },
+  globals: {},
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [

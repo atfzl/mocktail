@@ -3,7 +3,7 @@ import '..';
 
 import nanoid = require('nanoid');
 
-const globalAny = global as any;
+const env = process.env;
 
 let postMessage: jest.Mock<any, any>;
 
@@ -23,11 +23,11 @@ describe('Inject Script', () => {
   };
 
   beforeEach(() => {
-    postMessage = globalAny.postMessage = jest.fn();
+    postMessage = (global as any).postMessage = jest.fn();
   });
 
   test('XMLHTTPRequests: postMessage called twice', done => {
-    makeXHR('GET', globalAny.getUrl('/json'), true)
+    makeXHR('GET', env.apiUrl + '/json', true)
       .then(() => {
         expect(postMessage).toBeCalledTimes(2);
         done();
@@ -36,7 +36,7 @@ describe('Inject Script', () => {
   });
 
   test('Fetch: postMessage called twice', done => {
-    fetch(globalAny.getUrl('/json'))
+    fetch(env.apiUrl + '/json')
       .then(() => {
         expect(postMessage).toBeCalledTimes(2);
         done();
@@ -45,7 +45,7 @@ describe('Inject Script', () => {
   });
 
   test('XMLHTTPRequests: Hook snapshot', done => {
-    makeXHR('GET', globalAny.getUrl('/json'), true)
+    makeXHR('GET', env.apiUrl + '/json', true)
       .then(() => {
         expect(postMessage.mock.calls[0]).toMatchSnapshot();
         expect(postMessage.mock.calls[1]).toMatchSnapshot();
@@ -55,7 +55,7 @@ describe('Inject Script', () => {
   });
 
   test('Fetch: Hook snapshot', done => {
-    fetch(globalAny.getUrl('/json'))
+    fetch(env.apiUrl + '/json', { cache: 'no-cache' })
       .then(() => {
         expect(postMessage.mock.calls[0]).toMatchSnapshot();
         expect(postMessage.mock.calls[1]).toMatchSnapshot();
