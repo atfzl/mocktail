@@ -27,12 +27,11 @@ function getHeaderObj(headers: Headers | Record<string, string>) {
 function generateRequestPayload(
   request: NetworkRequest,
 ): NetworkRow['request'] {
+  // Check if request is a fetch
   if (request instanceof Request || request.url instanceof Request) {
     const req = (request.url instanceof Request
       ? request.url
       : request) as Request;
-
-    console.info('fetch', req);
 
     return {
       url: req.url,
@@ -42,8 +41,6 @@ function generateRequestPayload(
     };
   } else {
     const req = request as XHRRequest<any>;
-
-    console.info('xhr', req);
 
     return {
       url: req.url,
@@ -57,6 +54,7 @@ function generateRequestPayload(
 async function generateResponsePayload(
   response: NetworkResponse,
 ): Promise<NetworkRow['response']> {
+  // Check if it is a fetch response
   if (response instanceof Response) {
     const { status, headers, url } = response;
 

@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Inject Script Fetch: Hook snapshot 1`] = `
+Array [
+  Object {
+    "id": 1,
+    "payload": Object {
+      "body": Object {
+        "body": undefined,
+        "headers": Object {},
+        "method": "GET",
+        "url": "http://localhost:5555/json",
+      },
+      "evt": "before",
+    },
+    "source": "xhook-atfzl-message",
+    "type": "request",
+  },
+  "*",
+]
+`;
+
+exports[`Inject Script Fetch: Hook snapshot 2`] = `
+Array [
+  Object {
+    "id": 1,
+    "payload": Object {
+      "body": Object {
+        "request": Object {
+          "body": undefined,
+          "headers": Object {},
+          "method": "GET",
+          "url": "http://localhost:5555/json",
+        },
+        "response": Object {
+          "data": Object {
+            "name": "john",
+          },
+          "finalUrl": "http://localhost:5555/json",
+          "headers": Object {
+            "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+            "access-control-allow-origin": "*",
+            "connection": "close",
+            "content-length": "15",
+            "content-type": "application/json; charset=utf-8",
+            "date": "1",
+            "etag": "1",
+            "x-powered-by": "Express",
+          },
+          "status": 200,
+        },
+      },
+      "evt": "after",
+    },
+    "source": "xhook-atfzl-message",
+    "type": "request",
+  },
+  "*",
+]
+`;
+
+exports[`Inject Script XMLHTTPRequests: Hook snapshot 1`] = `
+Array [
+  Object {
+    "id": 1,
+    "payload": Object {
+      "body": Object {
+        "body": undefined,
+        "headers": Object {},
+        "method": "GET",
+        "url": "http://localhost:5555/json",
+      },
+      "evt": "before",
+    },
+    "source": "xhook-atfzl-message",
+    "type": "request",
+  },
+  "*",
+]
+`;
+
+exports[`Inject Script XMLHTTPRequests: Hook snapshot 2`] = `
+Array [
+  Object {
+    "id": 1,
+    "payload": Object {
+      "body": Object {
+        "request": Object {
+          "body": undefined,
+          "headers": Object {},
+          "method": "GET",
+          "url": "http://localhost:5555/json",
+        },
+        "response": Object {
+          "data": "{\\"name\\":\\"john\\"}",
+          "finalUrl": "http://localhost:5555/json",
+          "headers": Object {
+            "content-type": "application/json; charset=utf-8",
+          },
+          "status": 200,
+        },
+      },
+      "evt": "after",
+    },
+    "source": "xhook-atfzl-message",
+    "type": "request",
+  },
+  "*",
+]
+`;
