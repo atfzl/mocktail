@@ -48,11 +48,6 @@ task('build', () => {
     .watch('#/**/*.*');
 
   fuse
-    .bundle('devtools')
-    .instructions('> #/entry/devtools/index.ts')
-    .watch('#/**/*.*');
-
-  fuse
     .bundle('panel')
     .instructions('> #/entry/panel/index.tsx')
     .watch('#/**/*.*');
