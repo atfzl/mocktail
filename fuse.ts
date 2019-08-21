@@ -57,11 +57,6 @@ task('build', () => {
     .instructions('> #/entry/panel/index.tsx')
     .watch('#/**/*.*');
 
-  fuse
-    .bundle('popup')
-    .instructions('> #/entry/popup/index.ts')
-    .watch('#/**/*.*');
-
   return fuse.run();
 });
 

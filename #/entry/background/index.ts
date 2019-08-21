@@ -1,5 +1,23 @@
 import '#/entry/background/hotReload';
 
+let mocktailActive = true;
+
+chrome.browserAction.onClicked.addListener(tab => {
+  if (mocktailActive) {
+    chrome.browserAction.setIcon({
+      path: 'disabled-icon48.png',
+      tabId: tab.id,
+    });
+    mocktailActive = false;
+  } else {
+    chrome.browserAction.setIcon({
+      path: 'icon48.png',
+      tabId: tab.id,
+    });
+    mocktailActive = true;
+  }
+});
+
 chrome.runtime.onConnect.addListener(port => {
   if (port.name === 'atfzl-content') {
     port.onMessage.addListener(console.info);
