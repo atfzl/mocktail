@@ -2,6 +2,14 @@ import '#/entry/background/hotReload';
 
 let mocktailActive = true;
 
+function toggleEnable(enable: boolean) {
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+    if (tabs[0].id) {
+      chrome.tabs.sendMessage(tabs[0].id, { enable });
+    }
+  });
+}
+
 chrome.browserAction.onClicked.addListener(tab => {
   if (mocktailActive) {
     chrome.browserAction.setIcon({
@@ -16,6 +24,7 @@ chrome.browserAction.onClicked.addListener(tab => {
     });
     mocktailActive = true;
   }
+  toggleEnable(mocktailActive);
 });
 
 chrome.runtime.onConnect.addListener(port => {

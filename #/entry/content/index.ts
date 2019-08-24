@@ -14,3 +14,5 @@ receiveMessage(async message => {
 });
 
 injectScript('inject.bundle.js');
+
+chrome.runtime.onMessage.addListener(console.info);
