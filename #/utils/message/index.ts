@@ -1,4 +1,4 @@
-import nanoid = require('nanoid');
+import * as nanoid from 'nanoid';
 
 const SOURCE = 'xhook-atfzl-message';
 
@@ -8,14 +8,16 @@ export const postMessage = <T extends object>(payload: T) => {
   return new Promise(resolve => {
     const eventListener = (event: MessageEvent) => {
       if (
-        event.source === window &&
-        event.data.id === id &&
-        event.data.source === SOURCE &&
-        event.data.type === 'response'
+        !event.data ||
+        event.data.id !== id ||
+        event.data.source !== SOURCE ||
+        event.data.type !== 'response'
       ) {
-        resolve(event.data.response);
-        window.removeEventListener('message', eventListener);
+        return;
       }
+
+      resolve(event.data.response);
+      window.removeEventListener('message', eventListener);
     };
 
     window.addEventListener('message', eventListener);
@@ -28,17 +30,14 @@ export const receiveMessage = <M = any, T = any>(
 ) => {
   const eventListener = (event: MessageEvent) => {
     if (
-      event.source !== window ||
       !event.data ||
       event.data.source !== SOURCE ||
       event.data.type !== 'request'
     ) {
       return;
     }
+
     cb(event.data.payload).then(response => {
-      if (!response) {
-        return;
-      }
       window.postMessage(
         { id: event.data.id, response, source: SOURCE, type: 'response' },
         '*',
@@ -47,4 +46,6 @@ export const receiveMessage = <M = any, T = any>(
   };
 
   window.addEventListener('message', eventListener);
+
+  return () => window.removeEventListener('message', eventListener);
 };

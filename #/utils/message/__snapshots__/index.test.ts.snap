@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`postMessage default 1`] = `
+Object {
+  "some": "message",
+}
+`;
+
+exports[`postMessage with a reply 1`] = `
+Object {
+  "some": "new message",
+}
+`;
+
+exports[`postMessage with a reply 2`] = `
+Object {
+  "replyMessage": "1",
+}
+`;
