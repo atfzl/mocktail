@@ -31,7 +31,6 @@
     "css-loader": "^3.2.0",
     "fork-ts-checker-webpack-plugin": "^1.5.0",
     "fuse-box-typechecker": "^2.12.0",
-    "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
     "prettier": "^1.17.1",
     "style-loader": "^1.0.0",
@@ -50,6 +49,7 @@
     "json-stringify-safe": "^5.0.1",
     "nanoid": "^2.0.3",
     "rxjs": "^6.5.2",
+    "solid-js": "^0.10.2",
     "xhook": "^1.4.9"
   }
 }

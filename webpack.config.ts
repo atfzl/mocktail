@@ -1,6 +1,5 @@
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as path from 'path';
 import * as ExtensionLoader from 'webpack-extension-reloader';
 // @ts-ignore
@@ -42,11 +41,6 @@ module.exports = {
         from: '#/assets',
       },
     ]),
-    new HtmlWebpackPlugin({
-      template: '#/assets/panel.html',
-      filename: 'panel.html',
-      chunks: ['panel'],
-    }),
     new WriteFilePlugin(),
     // @ts-ignore
     new ExtensionLoader({

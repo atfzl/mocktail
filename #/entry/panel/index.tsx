@@ -1,17 +1,9 @@
 import { PANEL_PORT } from '#/constants';
-import { injectGlobal } from 'emotion';
+import { createRoot } from 'solid-js';
 
-console.info('panel');
-
-// tslint:disable-next-line:no-unused-expression
-injectGlobal`
-  html, body {
-    margin: 0;
-    padding: 0;
-  }
-`;
-
-document.querySelector('#app')!.textContent = 'panel';
+createRoot(() => {
+  document.getElementById('app')!.appendChild(<div>Hello World</div> as any);
+});
 
 const port = chrome.runtime.connect({ name: PANEL_PORT });
 
