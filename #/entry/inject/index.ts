@@ -1,14 +1,32 @@
 console.info('inject script');
 
 import { NetworkRequest } from '#/interfaces';
-import { postMessage } from '#/utils/message';
+import { postMessage, receiveMessage } from '#/utils/message';
 import { xhook } from 'xhook';
-
-xhook.enable();
 
 xhook.before((request: NetworkRequest) => {
   postMessage({
-    evt: 'before',
-    body: request.url,
+    from: 'inject',
+    type: 'before',
+    payload: request.url,
   });
+});
+
+postMessage({ type: 'init', from: 'inject' });
+
+receiveMessage(async message => {
+  if (message.from === 'inject') {
+    return;
+  }
+
+  switch (message.type) {
+    case 'enable-xhook': {
+      if (message.payload.enable) {
+        xhook.enable();
+      } else {
+        xhook.disable();
+      }
+      return;
+    }
+  }
 });

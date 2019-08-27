@@ -1,18 +1,16 @@
-console.info('content script');
-
-import { receiveMessage } from '#/utils/message';
+import { CONTENT_PORT } from '#/constants';
+import { postMessage, receiveMessage } from '#/utils/message';
 import { injectScript } from '#/utils/script';
 
-const port = chrome.runtime.connect({ name: 'atfzl-content' });
-
-port.onMessage.addListener(console.info);
+const port = chrome.runtime.connect({ name: CONTENT_PORT });
 
 receiveMessage(async message => {
-  console.info('message from inject = ', message);
-
-  port.postMessage(message);
+  if (message.from === 'inject') {
+    port.postMessage(message);
+  }
+});
+port.onMessage.addListener(message => {
+  postMessage(message);
 });
 
 injectScript('inject.bundle.js');
-
-chrome.runtime.onMessage.addListener(console.info);
