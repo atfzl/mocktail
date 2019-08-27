@@ -1,7 +1,5 @@
 import '#/entry/background/hotReload';
 
-let mocktailActive = true;
-
 function toggleEnable(enable: boolean) {
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     if (tabs[0].id) {
@@ -11,20 +9,26 @@ function toggleEnable(enable: boolean) {
 }
 
 chrome.browserAction.onClicked.addListener(tab => {
-  if (mocktailActive) {
-    chrome.browserAction.setIcon({
-      path: 'disabled-icon48.png',
-      tabId: tab.id,
-    });
-    mocktailActive = false;
-  } else {
-    chrome.browserAction.setIcon({
-      path: 'icon48.png',
-      tabId: tab.id,
-    });
-    mocktailActive = true;
-  }
-  toggleEnable(mocktailActive);
+  const url = new URL(tab.url!);
+
+  chrome.storage.sync.get([url.hostname], result => {
+    const value = result[url.hostname] || { enabled: false };
+
+    if (value.enabled) {
+      chrome.browserAction.setIcon({
+        path: 'disabled-icon48.png',
+        tabId: tab.id,
+      });
+      chrome.storage.sync.set({ [url.hostname]: { enabled: false } });
+    } else {
+      chrome.browserAction.setIcon({
+        path: 'icon48.png',
+        tabId: tab.id,
+      });
+      chrome.storage.sync.set({ [url.hostname]: { enabled: true } });
+    }
+    toggleEnable(!value.enabled);
+  });
 });
 
 chrome.runtime.onConnect.addListener(port => {

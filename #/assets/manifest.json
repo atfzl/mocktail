@@ -3,7 +3,7 @@
   "name": "Mocktail",
   "description": "Chrome Extension Starter Kit",
   "version": "1.0",
-  "permissions": ["<all_urls>"],
+  "permissions": ["<all_urls>", "storage"],
   "web_accessible_resources": ["inject.bundle.js"],
   "background": {
     "scripts": ["background.bundle.js"],
