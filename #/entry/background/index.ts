@@ -4,9 +4,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 import { CONTENT_PORT, PANEL_PORT } from '#/constants';
-import browserActionOnClickPipeline from './pipelines/browserActionOnClick';
-import injectPipeline from './pipelines/inject';
-import panelPipeline from './pipelines/panel';
+import browserActionOnClickPipeline from './pipelines/browserActionOnClickPipeline';
+import injectPipeline from './pipelines/injectPipeline';
+import panelPipeline from './pipelines/panelPipeline';
 
 chrome.runtime.onConnect.addListener(port => {
   switch (port.name) {
