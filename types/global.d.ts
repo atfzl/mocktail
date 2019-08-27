@@ -1,5 +1,5 @@
 declare module 'xhook' {
-  const x: { xhook: any };
+  const x: any;
   export = x;
 }
 

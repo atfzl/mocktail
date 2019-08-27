@@ -2,10 +2,11 @@
   "compilerOptions": {
     "sourceMap": true,
     "strict": true,
-    "target": "es5",
-    "jsx": "react",
+    "target": "esnext",
+    "jsx": "preserve",
     "module": "commonjs",
     "moduleResolution": "node",
+    "isolatedModules": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": false,
@@ -15,8 +16,14 @@
     "noUnusedLocals": true,
     "removeComments": true,
     "strictNullChecks": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "outDir": "dist",
-    "lib": ["es6", "es7", "es2017", "dom"]
+    "lib": ["es6", "es7", "es2017", "dom"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/babel-plugin-jsx-dom-expressions",
+      "./types"
+    ]
   }
 }

@@ -1,8 +1,3 @@
-if (process.env.NODE_ENV !== 'production') {
-  // tslint:disable-next-line:no-var-requires
-  require('#/entry/background/hotReload');
-}
-
 import { CONTENT_PORT, PANEL_PORT } from '#/constants';
 import browserActionOnClickPipeline from './pipelines/browserActionOnClickPipeline';
 import injectPipeline from './pipelines/injectPipeline';

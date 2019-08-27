@@ -2,7 +2,7 @@ console.info('inject script');
 
 import { NetworkRequest } from '#/interfaces';
 import { postMessage, receiveMessage } from '#/utils/message';
-import { xhook } from 'xhook';
+import * as xhook from 'xhook';
 
 xhook.before((request: NetworkRequest) => {
   postMessage({
