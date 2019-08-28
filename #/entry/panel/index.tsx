@@ -1,8 +1,9 @@
 import { PANEL_PORT } from '#/constants';
 import { createRoot } from 'solid-js';
+import Root from './root';
 
 createRoot(() => {
-  document.getElementById('app')!.appendChild(<div>Hello World</div> as any);
+  document.getElementById('app')!.appendChild(<Root /> as any);
 });
 
 const port = chrome.runtime.connect({ name: PANEL_PORT });
