@@ -32,14 +32,13 @@ export interface NetworkRow {
   request: {
     url: string;
     method: string;
-    body: any;
+    body?: any;
     headers: Record<string, string>;
   };
   response?: {
     status: number;
     headers: Record<string, string>;
     data: any;
-    finalUrl: string;
   };
 }
 
