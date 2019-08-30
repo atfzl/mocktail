@@ -26,7 +26,7 @@ function Table(props: Props) {
           </tr>
         </thead>
         <tbody className={css``}>
-          <For each={props.rows}>
+          <For each={(void 0, props.rows)}>
             {row => (
               <tr className={TBodyRowStyles}>
                 <td className={TdStyles}>{row.request.url}</td>

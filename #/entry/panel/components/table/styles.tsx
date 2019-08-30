@@ -3,7 +3,6 @@ import { css } from 'emotion';
 export const ThStyles = css`
   border-bottom: 1px solid rgb(205, 205, 205);
   border-left: 1px solid rgb(205, 205, 205);
-  border-top: 1px solid rgb(205, 205, 205);
   padding: 4px 4px;
   height: 18px;
   text-align: left;

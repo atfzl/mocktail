@@ -6,6 +6,8 @@
     "member-ordering": false,
     "no-implicit-dependencies": false,
     "interface-name": false,
-    "no-console": [true, "log"]
+    "no-console": [true, "log"],
+    "ban-comma-operator": false,
+    "no-unused-expression": false
   }
 }

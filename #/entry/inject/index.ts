@@ -8,7 +8,11 @@ xhook.before((request: NetworkRequest) => {
   postMessage({
     from: 'inject',
     type: 'before',
-    payload: request.url,
+    payload: {
+      request: {
+        url: request.url,
+      },
+    },
   });
 });
 

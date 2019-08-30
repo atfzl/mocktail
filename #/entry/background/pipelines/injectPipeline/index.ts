@@ -1,4 +1,18 @@
+import { PANEL_PORT } from '#/constants';
 import initXHook from '#/entry/background/services/initXHook';
+
+let panelPort: chrome.runtime.Port | undefined;
+
+chrome.runtime.onConnect.addListener(port => {
+  if (port.name === PANEL_PORT) {
+    console.log(port);
+
+    panelPort = port;
+    panelPort.onDisconnect.addListener(() => {
+      panelPort = undefined;
+    });
+  }
+});
 
 const injectPipeline: (
   message: { type: string; payload: any },
@@ -16,6 +30,12 @@ const injectPipeline: (
           });
         }
       });
+    }
+    case 'before': {
+      if (panelPort) {
+        panelPort.postMessage(message);
+      }
+      return;
     }
     default: {
       return;
