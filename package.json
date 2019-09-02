@@ -5,9 +5,8 @@
   "author": "Atif Afzal <atif5801@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf dist",
-    "start": "yarn clean && webpack --watch",
-    "storybook": "start-storybook",
+    "start": "webpack-dev-server --hot --history-api-fallback --quiet --liveReload=false",
+    "storybook": "start-storybook -p 6006",
     "check-types": "tsc",
     "test": "jest",
     "test:dev": "jest --watch"
@@ -29,10 +28,8 @@
     "@types/webpack-env": "^1.14.0",
     "babel-loader": "^8.0.6",
     "babel-preset-solid": "^0.1.0",
-    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "fork-ts-checker-webpack-plugin": "^1.5.0",
-    "fuse-box-typechecker": "^2.12.0",
     "jest": "^24.9.0",
     "prettier": "^1.17.1",
     "style-loader": "^1.0.0",
@@ -43,12 +40,10 @@
     "typescript": "^3.4.5",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
-    "webpack-extension-reloader": "^1.1.0",
-    "write-file-webpack-plugin": "^4.5.1"
+    "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
     "emotion": "^10.0.14",
-    "json-stringify-safe": "^5.0.1",
     "nanoid": "^2.0.3",
     "rxjs": "^6.5.2",
     "solid-js": "^0.10.2",

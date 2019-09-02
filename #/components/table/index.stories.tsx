@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/html';
-import Table from './';
+import Table from '.';
 
 storiesOf('Table', module).add('default', () => (
   <Table
