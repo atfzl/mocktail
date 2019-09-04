@@ -30,6 +30,7 @@ export type NetworkResponse = XHRResponse | Response;
 
 export interface NetworkRow {
   request: {
+    id: string;
     url: string;
     method: string;
     body?: any;

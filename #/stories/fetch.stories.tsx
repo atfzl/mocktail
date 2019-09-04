@@ -9,7 +9,24 @@ createRoot(() => {
       rows: [
         {
           request: {
-            url: 'url',
+            id: '1',
+            url: 'url1',
+            method: 'get',
+            headers: {},
+          },
+        },
+        {
+          request: {
+            id: '2',
+            url: 'url2',
+            method: 'get',
+            headers: {},
+          },
+        },
+        {
+          request: {
+            id: '3',
+            url: 'url3',
             method: 'get',
             headers: {},
           },
