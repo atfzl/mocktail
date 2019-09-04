@@ -41,43 +41,46 @@ function Table(props: Props) {
         </thead>
         <tbody className={css``}>
           <For each={(void 0, props.rows)}>
-            {row => (
-              <tr className={TBodyRowStyles}>
-                {() => {
-                  const isSelectedRow = props.selectedRowId === row.request.id;
-
-                  const style = {
-                    backgroundColor: isSelectedRow ? '#1973e8' : 'none',
-                    color: isSelectedRow ? '#fff' : '#000',
-                  };
-
-                  return (
-                    <td
-                      className={cx(
-                        TdStyles,
-                        css`
-                          cursor: pointer;
-                        `,
-                      )}
-                      forwardRef={networkCellPipeline(row.request.id)}
-                      style={style}
-                    >
-                      {row.request.url}
+            {row => {
+              return (
+                <tr className={TBodyRowStyles}>
+                  <td
+                    className={cx(
+                      TdStyles,
+                      css`
+                        cursor: pointer;
+                      `,
+                    )}
+                    forwardRef={networkCellPipeline(row.request.id)}
+                    style={
+                      (void 0,
+                      {
+                        backgroundColor:
+                          props.selectedRowId === row.request.id
+                            ? '#1973e8'
+                            : 'transparent',
+                        color:
+                          props.selectedRowId === row.request.id
+                            ? '#fff'
+                            : '#000',
+                      })
+                    }
+                  >
+                    {row.request.url}
+                  </td>
+                  <Show when={(void 0, !props.selectedRowId)}>
+                    <td className={TdStyles}>{row.request.method}</td>
+                    <td className={TdStyles}>
+                      {row.response ? row.response.status : '-'}
                     </td>
-                  );
-                }}
-                <Show when={(void 0, !props.selectedRowId)}>
-                  <td className={TdStyles}>{row.request.method}</td>
-                  <td className={TdStyles}>
-                    {row.response ? row.response.status : '-'}
-                  </td>
-                  <td className={TdStyles}>
-                    {row.response ? row.response.data : '-'}
-                  </td>
-                  <td className={TdStyles}>3s</td>
-                </Show>
-              </tr>
-            )}
+                    <td className={TdStyles}>
+                      {row.response ? row.response.data : '-'}
+                    </td>
+                    <td className={TdStyles}>3s</td>
+                  </Show>
+                </tr>
+              );
+            }}
           </For>
         </tbody>
       </table>
