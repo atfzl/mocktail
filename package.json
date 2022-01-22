@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "emotion": "^10.0.14",
-    "nanoid": "^2.0.3",
+    "nanoid": "^3.1.31",
     "rxjs": "^6.5.2",
     "solid-js": "^0.10.2",
     "xhook": "^1.4.9"
